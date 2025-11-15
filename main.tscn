@@ -1,0 +1,17 @@
+[gd_scene load_steps=2 format=3 uid="uid://de7g1y7qjcrdc"]
+
+[ext_resource type="Script" uid="uid://dmw21itoq3ou3" path="res://Button.cs" id="1_ig7tw"]
+
+[node name="Main" type="Node2D"]
+
+[node name="ImageContainer" type="Node2D" parent="."]
+
+[node name="CenterContainer" type="CenterContainer" parent="."]
+offset_top = 1024.0
+offset_right = 1920.0
+offset_bottom = 1080.0
+
+[node name="Button" type="Button" parent="CenterContainer"]
+layout_mode = 2
+text = "Shuffle"
+script = ExtResource("1_ig7tw")
