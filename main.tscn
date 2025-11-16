@@ -1,10 +1,80 @@
-[gd_scene load_steps=2 format=3 uid="uid://de7g1y7qjcrdc"]
+[gd_scene load_steps=16 format=3 uid="uid://de7g1y7qjcrdc"]
 
+[ext_resource type="Texture2D" uid="uid://f8xc6nra41dg" path="res://images/trash_1.png" id="1_h2yge"]
 [ext_resource type="Script" uid="uid://dmw21itoq3ou3" path="res://Button.cs" id="1_ig7tw"]
+[ext_resource type="Texture2D" uid="uid://ct1l8802kk0w8" path="res://images/trash_2.png" id="2_1bvp3"]
+[ext_resource type="Texture2D" uid="uid://blx0wwo21n4mh" path="res://images/trash_3.png" id="3_vivmo"]
+[ext_resource type="Texture2D" uid="uid://bcj8mjhtndrfu" path="res://images/trash_4.png" id="4_2cqfq"]
+[ext_resource type="Texture2D" uid="uid://daqi0ay1nob57" path="res://images/trash_5.png" id="5_yaehf"]
+[ext_resource type="Texture2D" uid="uid://co5n41dpg7ua" path="res://images/trash_6.png" id="6_074og"]
+[ext_resource type="Texture2D" uid="uid://pscwej5qjvcw" path="res://images/trash_7.png" id="7_cegan"]
+[ext_resource type="Texture2D" uid="uid://clmt8h5fk35eq" path="res://images/trash_8.png" id="8_82xsv"]
+[ext_resource type="Texture2D" uid="uid://cxtqgybgbpoys" path="res://images/trash_9.png" id="9_getpj"]
+[ext_resource type="Texture2D" uid="uid://dn8eo8jtnbuwi" path="res://images/trash_10.png" id="10_ryguw"]
+[ext_resource type="Texture2D" uid="uid://b4gpykkenhmx5" path="res://images/trash_11.png" id="11_d13ii"]
+[ext_resource type="Texture2D" uid="uid://dm66xqexejrla" path="res://images/trash_12.png" id="12_1u8w0"]
+[ext_resource type="Texture2D" uid="uid://chgp11cy7162p" path="res://images/trash_13.png" id="13_0odxb"]
+[ext_resource type="Texture2D" uid="uid://dqrroq6upoln6" path="res://images/trash_14.png" id="14_lswn8"]
 
 [node name="Main" type="Node2D"]
 
-[node name="ImageContainer" type="Node2D" parent="."]
+[node name="SpriteContainer" type="Node2D" parent="."]
+
+[node name="Trash1" type="Sprite2D" parent="SpriteContainer"]
+position = Vector2(-536, 576)
+texture = ExtResource("1_h2yge")
+
+[node name="Trash2" type="Sprite2D" parent="SpriteContainer"]
+position = Vector2(-536, 488)
+texture = ExtResource("2_1bvp3")
+
+[node name="Trash3" type="Sprite2D" parent="SpriteContainer"]
+position = Vector2(-792, 832)
+texture = ExtResource("3_vivmo")
+
+[node name="Trash4" type="Sprite2D" parent="SpriteContainer"]
+position = Vector2(-544, 584)
+texture = ExtResource("4_2cqfq")
+
+[node name="Trash5" type="Sprite2D" parent="SpriteContainer"]
+position = Vector2(-608, 584)
+texture = ExtResource("5_yaehf")
+
+[node name="Trash6" type="Sprite2D" parent="SpriteContainer"]
+position = Vector2(-600, 456)
+texture = ExtResource("6_074og")
+
+[node name="Trash7" type="Sprite2D" parent="SpriteContainer"]
+position = Vector2(-160, 1656)
+texture = ExtResource("7_cegan")
+
+[node name="Trash8" type="Sprite2D" parent="SpriteContainer"]
+position = Vector2(752, 1624)
+texture = ExtResource("8_82xsv")
+
+[node name="Trash9" type="Sprite2D" parent="SpriteContainer"]
+position = Vector2(1568, 1600)
+texture = ExtResource("9_getpj")
+
+[node name="Trash10" type="Sprite2D" parent="SpriteContainer"]
+position = Vector2(2368, 1224)
+texture = ExtResource("10_ryguw")
+
+[node name="Trash11" type="Sprite2D" parent="SpriteContainer"]
+position = Vector2(2432, 504)
+texture = ExtResource("11_d13ii")
+
+[node name="Trash12" type="Sprite2D" parent="SpriteContainer"]
+position = Vector2(2448, -368)
+texture = ExtResource("12_1u8w0")
+
+[node name="Trash13" type="Sprite2D" parent="SpriteContainer"]
+position = Vector2(1832, -632)
+texture = ExtResource("13_0odxb")
+
+[node name="Trash14" type="Sprite2D" parent="SpriteContainer"]
+position = Vector2(760, -600)
+texture = ExtResource("14_lswn8")
 
 [node name="CenterContainer" type="CenterContainer" parent="."]
 offset_top = 1024.0
