@@ -1,8 +1,11 @@
-[gd_scene load_steps=16 format=3 uid="uid://de7g1y7qjcrdc"]
+[gd_scene load_steps=19 format=3 uid="uid://de7g1y7qjcrdc"]
 
+[ext_resource type="Script" uid="uid://5gl7fnoxee3q" path="res://SpriteContainer.cs" id="1_2cqfq"]
+[ext_resource type="Script" uid="uid://byho0n4qloja2" path="res://Main.cs" id="1_074og"]
 [ext_resource type="Texture2D" uid="uid://f8xc6nra41dg" path="res://images/trash_1.png" id="1_h2yge"]
 [ext_resource type="Script" uid="uid://dmw21itoq3ou3" path="res://Button.cs" id="1_ig7tw"]
 [ext_resource type="Texture2D" uid="uid://ct1l8802kk0w8" path="res://images/trash_2.png" id="2_1bvp3"]
+[ext_resource type="PackedScene" uid="uid://dwkm7ph7h77qs" path="res://image.tscn" id="2_yaehf"]
 [ext_resource type="Texture2D" uid="uid://blx0wwo21n4mh" path="res://images/trash_3.png" id="3_vivmo"]
 [ext_resource type="Texture2D" uid="uid://bcj8mjhtndrfu" path="res://images/trash_4.png" id="4_2cqfq"]
 [ext_resource type="Texture2D" uid="uid://daqi0ay1nob57" path="res://images/trash_5.png" id="5_yaehf"]
@@ -17,64 +20,66 @@
 [ext_resource type="Texture2D" uid="uid://dqrroq6upoln6" path="res://images/trash_14.png" id="14_lswn8"]
 
 [node name="Main" type="Node2D"]
+script = ExtResource("1_074og")
 
 [node name="SpriteContainer" type="Node2D" parent="."]
+script = ExtResource("1_2cqfq")
 
-[node name="Trash1" type="Sprite2D" parent="SpriteContainer"]
-position = Vector2(-536, 576)
-texture = ExtResource("1_h2yge")
+[node name="TrashImage" parent="SpriteContainer" instance=ExtResource("2_yaehf")]
+position = Vector2(-624, 1376)
+Texture = ExtResource("1_h2yge")
 
-[node name="Trash2" type="Sprite2D" parent="SpriteContainer"]
-position = Vector2(-536, 488)
-texture = ExtResource("2_1bvp3")
+[node name="TrashImage2" parent="SpriteContainer" instance=ExtResource("2_yaehf")]
+position = Vector2(256, -976)
+Texture = ExtResource("2_1bvp3")
 
-[node name="Trash3" type="Sprite2D" parent="SpriteContainer"]
-position = Vector2(-792, 832)
-texture = ExtResource("3_vivmo")
+[node name="TrashImage3" parent="SpriteContainer" instance=ExtResource("2_yaehf")]
+position = Vector2(1488, -688)
+Texture = ExtResource("3_vivmo")
 
-[node name="Trash4" type="Sprite2D" parent="SpriteContainer"]
-position = Vector2(-544, 584)
-texture = ExtResource("4_2cqfq")
+[node name="TrashImage4" parent="SpriteContainer" instance=ExtResource("2_yaehf")]
+position = Vector2(2448, -416)
+Texture = ExtResource("4_2cqfq")
 
-[node name="Trash5" type="Sprite2D" parent="SpriteContainer"]
-position = Vector2(-608, 584)
-texture = ExtResource("5_yaehf")
+[node name="TrashImage5" parent="SpriteContainer" instance=ExtResource("2_yaehf")]
+position = Vector2(2488, 1448)
+Texture = ExtResource("5_yaehf")
 
-[node name="Trash6" type="Sprite2D" parent="SpriteContainer"]
-position = Vector2(-600, 456)
-texture = ExtResource("6_074og")
+[node name="TrashImage6" parent="SpriteContainer" instance=ExtResource("2_yaehf")]
+position = Vector2(1464, 1616)
+Texture = ExtResource("6_074og")
 
-[node name="Trash7" type="Sprite2D" parent="SpriteContainer"]
-position = Vector2(-160, 1656)
-texture = ExtResource("7_cegan")
+[node name="TrashImage7" parent="SpriteContainer" instance=ExtResource("2_yaehf")]
+position = Vector2(464, 1592)
+Texture = ExtResource("7_cegan")
 
-[node name="Trash8" type="Sprite2D" parent="SpriteContainer"]
-position = Vector2(752, 1624)
-texture = ExtResource("8_82xsv")
+[node name="TrashImage8" parent="SpriteContainer" instance=ExtResource("2_yaehf")]
+position = Vector2(-552, 1000)
+Texture = ExtResource("8_82xsv")
 
-[node name="Trash9" type="Sprite2D" parent="SpriteContainer"]
-position = Vector2(1568, 1600)
-texture = ExtResource("9_getpj")
+[node name="TrashImage9" parent="SpriteContainer" instance=ExtResource("2_yaehf")]
+position = Vector2(-560, -512)
+Texture = ExtResource("9_getpj")
 
-[node name="Trash10" type="Sprite2D" parent="SpriteContainer"]
-position = Vector2(2368, 1224)
-texture = ExtResource("10_ryguw")
+[node name="TrashImage10" parent="SpriteContainer" instance=ExtResource("2_yaehf")]
+position = Vector2(-560, 344)
+Texture = ExtResource("10_ryguw")
 
-[node name="Trash11" type="Sprite2D" parent="SpriteContainer"]
-position = Vector2(2432, 504)
-texture = ExtResource("11_d13ii")
+[node name="TrashImage11" parent="SpriteContainer" instance=ExtResource("2_yaehf")]
+position = Vector2(2464, 416)
+Texture = ExtResource("11_d13ii")
 
-[node name="Trash12" type="Sprite2D" parent="SpriteContainer"]
-position = Vector2(2448, -368)
-texture = ExtResource("12_1u8w0")
+[node name="TrashImage12" parent="SpriteContainer" instance=ExtResource("2_yaehf")]
+position = Vector2(2136, -488)
+Texture = ExtResource("12_1u8w0")
 
-[node name="Trash13" type="Sprite2D" parent="SpriteContainer"]
-position = Vector2(1832, -632)
-texture = ExtResource("13_0odxb")
+[node name="TrashImage13" parent="SpriteContainer" instance=ExtResource("2_yaehf")]
+position = Vector2(1304, -528)
+Texture = ExtResource("13_0odxb")
 
-[node name="Trash14" type="Sprite2D" parent="SpriteContainer"]
-position = Vector2(760, -600)
-texture = ExtResource("14_lswn8")
+[node name="TrashImage14" parent="SpriteContainer" instance=ExtResource("2_yaehf")]
+position = Vector2(424, -536)
+Texture = ExtResource("14_lswn8")
 
 [node name="CenterContainer" type="CenterContainer" parent="."]
 offset_top = 1024.0
