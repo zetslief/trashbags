@@ -31,7 +31,7 @@ gradient = SubResource("Gradient_cegan")
 [node name="Main" type="Node2D"]
 script = ExtResource("1_074og")
 
-[node name="MeshInstance2D" type="MeshInstance2D" parent="."]
+[node name="Background" type="MeshInstance2D" parent="."]
 position = Vector2(1192.3734, 503.99997)
 scale = Vector2(3840.7466, 1760)
 mesh = SubResource("QuadMesh_074og")
@@ -97,9 +97,8 @@ position = Vector2(424, -536)
 Texture = ExtResource("14_lswn8")
 
 [node name="CenterContainer" type="CenterContainer" parent="."]
-offset_top = 1024.0
 offset_right = 1920.0
-offset_bottom = 1080.0
+offset_bottom = 56.0
 
 [node name="Button" type="Button" parent="CenterContainer"]
 layout_mode = 2
