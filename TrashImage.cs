@@ -3,6 +3,7 @@ using System;
 
 public partial class TrashImage : StaticBody2D
 {
+    const float MouseInteractionDuration = 0.15f;
     private Vector2 initialScale;
 
     [Export]
@@ -23,23 +24,23 @@ public partial class TrashImage : StaticBody2D
     public override void _MouseEnter()
     {
         initialScale = Scale;
-        Scale = initialScale * 1.2f;
+        var tween = CreateTween();
+        tween.TweenProperty(this, "scale", initialScale * 1.2f, MouseInteractionDuration);
     }
 
     public override void _MouseExit()
     {
-        Scale = initialScale;
+        var tween = CreateTween();
+        tween.TweenProperty(this, "scale", initialScale, MouseInteractionDuration);
     }
 
     public static void SetSize(TrashImage trashImage, float height)
     {
         var sprite = trashImage.GetNode<Sprite2D>("Sprite");
-        var collider = trashImage.GetNode<CollisionShape2D>("Collider");
-        var currentScale = sprite.Scale;
+        var currentScale = trashImage.Scale;
         var currentSpriteSize = sprite.GetRect().Size * currentScale;
         var resultScale = CalculateScale(currentScale, currentSpriteSize, height);
-        sprite.Scale = resultScale;
-        collider.Scale = resultScale;
+        trashImage.Scale = resultScale;
     }
 
     private static Vector2 CalculateScale(Vector2 currentScale, Vector2 currentSize, float requiredHeight)
