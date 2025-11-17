@@ -22,7 +22,7 @@ public partial class Button : Godot.Button
                 TrashImage.SetSize(sprite, 204);
                 var targetPosition = CalculateRandomPosition(_viewportSize, _viewportSize * 0.1f);
                 var tween = CreateTween();
-                tween.TweenProperty(child, "position", targetPosition, 3)
+                tween.TweenProperty(child, (string)Node2D.PropertyName.Position, targetPosition, 3)
                     .SetEase(Tween.EaseType.In)
                     .SetTrans(Tween.TransitionType.Linear);
             }

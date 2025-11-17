@@ -3,7 +3,7 @@ using System;
 
 public partial class TrashImage : StaticBody2D
 {
-    const float MouseInteractionDuration = 0.15f;
+    private const float MouseInteractionDuration = 0.15f;
     private Vector2 _initialScale;
     private bool _hovered = false;
     private Vector2 _initialPosition;
@@ -11,7 +11,7 @@ public partial class TrashImage : StaticBody2D
     private Sprite2D _sprite = default!;
 
     [Export]
-    private Texture2D? Texture { get; set; }
+    public Texture2D? Texture { get; set; }
 
     public override void _Ready()
     {
@@ -19,10 +19,12 @@ public partial class TrashImage : StaticBody2D
         _sprite = GetNode<Sprite2D>("Sprite");
         _sprite.Texture = Texture;
         var collider = GetNode<CollisionShape2D>("Collider");
+        var colliderSize = _sprite.GetRect().Size;
         collider.Shape = new RectangleShape2D()
         {
-            Size = _sprite.GetRect().Size
+            Size = colliderSize
         };
+        collider.Position = colliderSize / 2f;
     }
 
     public override void _MouseEnter()
@@ -54,15 +56,15 @@ public partial class TrashImage : StaticBody2D
                 var targetSpriteWidth = viewportSize.X * 0.4f;
                 var multiplier = targetSpriteWidth / currentSpriteSize.X;
                 var targetPosition = new Vector2((viewportSize.X - targetSpriteWidth) / 2, viewportSize.Y * 0.009f);
-                tween.TweenProperty(this, (string)PropertyName.Scale, Scale * multiplier, 1);
-                tween.TweenProperty(this, (string)PropertyName.Position, targetPosition, 1);
-                tween.TweenProperty(this, (string)PropertyName.ZIndex, 1000, 1);
+                tween.TweenProperty(this, (string)Node2D.PropertyName.Scale, Scale * multiplier, 1);
+                tween.TweenProperty(this, (string)Node2D.PropertyName.Position, targetPosition, 1);
+                tween.TweenProperty(this, (string)CanvasItem.PropertyName.ZIndex, 1000, 1);
             }
             else
             {
-                tween.TweenProperty(this, (string)PropertyName.Scale, _initialScale, 1);
-                tween.TweenProperty(this, (string)PropertyName.Position, _initialPosition, 1);
-                tween.TweenProperty(this, (string)PropertyName.ZIndex, 0, 1);
+                tween.TweenProperty(this, (string)Node2D.PropertyName.Scale, _initialScale, 1);
+                tween.TweenProperty(this, (string)Node2D.PropertyName.Position, _initialPosition, 1);
+                tween.TweenProperty(this, (string)CanvasItem.PropertyName.ZIndex, 0, 1);
             }
         }
     }
