@@ -19,8 +19,9 @@ public partial class Button : Godot.Button
         {
             if (child is TrashImage sprite)
             {
-                TrashImage.SetSize(sprite, 204);
-                var targetPosition = CalculateRandomPosition(_viewportSize, _viewportSize * 0.1f);
+                var resultSize = TrashImage.SetSize(sprite, 204);
+                var standardOffset = new Vector2(_viewportSize.X * 0.01f, _viewportSize.Y * 0.05f);
+                var targetPosition = CalculateRandomPosition(_viewportSize, standardOffset, resultSize);
                 var tween = CreateTween();
                 tween.TweenProperty(child, (string)Node2D.PropertyName.Position, targetPosition, 3)
                     .SetEase(Tween.EaseType.In)
@@ -29,10 +30,9 @@ public partial class Button : Godot.Button
         }
     }
 
-    private static Vector2 CalculateRandomPosition(Vector2 viewportSize, Vector2 offset)
+    private static Vector2 CalculateRandomPosition(Vector2 viewportSize, Vector2 defaultOffset, Vector2 rightBottomOffset)
     {
-        var x = (offset.X / 2) + Random.Shared.NextSingle() * (viewportSize.X - offset.X);
-        var y = (offset.Y / 2) + Random.Shared.NextSingle() * (viewportSize.Y - offset.Y);
-        return new(x, y);
+        var random = new Vector2(Random.Shared.NextSingle(), Random.Shared.NextSingle());
+        return defaultOffset + random * (viewportSize - defaultOffset * 2f - rightBottomOffset);
     }
 }

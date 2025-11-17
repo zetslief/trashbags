@@ -69,13 +69,15 @@ public partial class TrashImage : StaticBody2D
         }
     }
 
-    public static void SetSize(TrashImage trashImage, float height)
+    public static Vector2 SetSize(TrashImage trashImage, float height)
     {
         var sprite = trashImage._sprite;
         var currentScale = trashImage.Scale;
-        var currentSpriteSize = sprite.GetRect().Size * currentScale;
+        var spriteSize = sprite.GetRect().Size;
+        var currentSpriteSize = spriteSize * currentScale;
         var resultScale = CalculateScale(currentScale, currentSpriteSize, height);
         trashImage.Scale = resultScale;
+        return spriteSize * resultScale;
     }
 
     private static Vector2 CalculateScale(Vector2 currentScale, Vector2 currentSize, float requiredHeight)
