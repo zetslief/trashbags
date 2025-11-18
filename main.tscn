@@ -15,7 +15,18 @@
 [node name="Main" type="Node2D"]
 script = ExtResource("1_074og")
 
-[node name="TextEdit" type="TextEdit" parent="."]
+[node name="SpriteContainer" type="Node2D" parent="." node_paths=PackedStringArray("PositionMarker")]
+script = ExtResource("1_2cqfq")
+TrashImageScene = ExtResource("3_1bvp3")
+PositionMarker = NodePath("../ClearPositionMarker")
+
+[node name="ClearPositionMarker" type="Marker2D" parent="."]
+position = Vector2(64, 64)
+
+[node name="Backgroud" type="CanvasLayer" parent="."]
+layer = -1
+
+[node name="TextEdit" type="TextEdit" parent="Backgroud"]
 offset_left = 1168.0
 offset_right = 1920.0
 offset_bottom = 1080.0
@@ -41,30 +52,24 @@ empty_selection_clipboard_enabled = false
 wrap_mode = 1
 tab_input_mode = false
 
-[node name="SpriteContainer" type="Node2D" parent="." node_paths=PackedStringArray("PositionMarker")]
-script = ExtResource("1_2cqfq")
-TrashImageScene = ExtResource("3_1bvp3")
-PositionMarker = NodePath("../ClearPositionMarker")
+[node name="UI" type="CanvasLayer" parent="."]
 
-[node name="ClearPositionMarker" type="Marker2D" parent="."]
-position = Vector2(64, 64)
-
-[node name="CenterContainer" type="CenterContainer" parent="."]
+[node name="CenterContainer" type="CenterContainer" parent="UI"]
 offset_top = 1024.0
 offset_right = 1920.0
 offset_bottom = 1080.0
 
-[node name="HBoxContainer" type="HBoxContainer" parent="CenterContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="UI/CenterContainer"]
 layout_mode = 2
 
-[node name="Clear" type="Button" parent="CenterContainer/HBoxContainer" node_paths=PackedStringArray("SpriteContainer")]
+[node name="Clear" type="Button" parent="UI/CenterContainer/HBoxContainer" node_paths=PackedStringArray("SpriteContainer")]
 layout_mode = 2
 text = "CLEAR"
 script = ExtResource("4_lquwl")
-SpriteContainer = NodePath("../../../SpriteContainer")
+SpriteContainer = NodePath("../../../../SpriteContainer")
 
-[node name="Shuffle" type="Button" parent="CenterContainer/HBoxContainer" node_paths=PackedStringArray("SpriteContainer")]
+[node name="Shuffle" type="Button" parent="UI/CenterContainer/HBoxContainer" node_paths=PackedStringArray("SpriteContainer")]
 layout_mode = 2
 text = "SHUFFLE"
 script = ExtResource("1_ig7tw")
-SpriteContainer = NodePath("../../../SpriteContainer")
+SpriteContainer = NodePath("../../../../SpriteContainer")
