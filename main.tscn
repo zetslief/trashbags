@@ -1,10 +1,11 @@
-[gd_scene load_steps=9 format=3 uid="uid://de7g1y7qjcrdc"]
+[gd_scene load_steps=10 format=3 uid="uid://de7g1y7qjcrdc"]
 
 [ext_resource type="Script" uid="uid://5gl7fnoxee3q" path="res://SpriteContainer.cs" id="1_2cqfq"]
 [ext_resource type="Script" uid="uid://byho0n4qloja2" path="res://Main.cs" id="1_074og"]
 [ext_resource type="Script" uid="uid://dmw21itoq3ou3" path="res://ShuffleButton.cs" id="1_ig7tw"]
 [ext_resource type="PackedScene" uid="uid://dwkm7ph7h77qs" path="res://trashImage.tscn" id="3_1bvp3"]
 [ext_resource type="Script" uid="uid://qnhfjhb5igml" path="res://ClearButton.cs" id="4_lquwl"]
+[ext_resource type="Script" uid="uid://28mkjgy3t68q" path="res://RandomButton.cs" id="6_7mycd"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_lquwl"]
 
@@ -72,4 +73,10 @@ SpriteContainer = NodePath("../../../../SpriteContainer")
 layout_mode = 2
 text = "SHUFFLE"
 script = ExtResource("1_ig7tw")
+SpriteContainer = NodePath("../../../../SpriteContainer")
+
+[node name="Random" type="Button" parent="UI/CenterContainer/HBoxContainer" node_paths=PackedStringArray("SpriteContainer")]
+layout_mode = 2
+text = "RANDOM"
+script = ExtResource("6_7mycd")
 SpriteContainer = NodePath("../../../../SpriteContainer")

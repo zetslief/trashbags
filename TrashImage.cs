@@ -4,11 +4,14 @@ using System;
 public partial class TrashImage : StaticBody2D
 {
     private const float MouseInteractionDuration = 0.15f;
+    // Ready
+    private Sprite2D _sprite = default!;
+    private Vector2 _viewportSize;
+    // State
     private Vector2 _initialScale;
     private bool _hovered = false;
     private Vector2 _initialPosition;
     private bool _selected = false;
-    private Sprite2D _sprite = default!;
 
     [Export]
     public Texture2D? Texture { get; set; }
@@ -16,6 +19,7 @@ public partial class TrashImage : StaticBody2D
     public override void _Ready()
     {
         if (Texture is null) throw new InvalidOperationException();
+        _viewportSize = GetViewportRect().Size;
         _sprite = GetNode<Sprite2D>("Sprite");
         _sprite.Texture = Texture;
         var collider = GetNode<CollisionShape2D>("Collider");
@@ -44,28 +48,31 @@ public partial class TrashImage : StaticBody2D
         if (!_hovered) return;
         if (@event is InputEventMouseButton mb && mb.ButtonIndex == MouseButton.Left && mb.IsPressed())
         {
-            _selected = !_selected;
-            var sprite = GetNode<Sprite2D>("Sprite");
-            var viewportSize = GetViewportRect().Size;
-            var tween = CreateTween().SetParallel(true);
-            if (_selected)
-            {
-                _initialPosition = Position;
-                var currentScale = Scale;
-                var currentSpriteSize = sprite.GetRect().Size * currentScale;
-                var targetSpriteWidth = viewportSize.X * 0.4f;
-                var multiplier = targetSpriteWidth / currentSpriteSize.X;
-                var targetPosition = new Vector2((viewportSize.X - targetSpriteWidth) / 2, viewportSize.Y * 0.009f);
-                tween.TweenProperty(this, (string)Node2D.PropertyName.Scale, Scale * multiplier, 1);
-                tween.TweenProperty(this, (string)Node2D.PropertyName.Position, targetPosition, 1);
-                tween.TweenProperty(this, (string)CanvasItem.PropertyName.ZIndex, 1000, 1);
-            }
-            else
-            {
-                tween.TweenProperty(this, (string)Node2D.PropertyName.Scale, _initialScale, 1);
-                tween.TweenProperty(this, (string)Node2D.PropertyName.Position, _initialPosition, 1);
-                tween.TweenProperty(this, (string)CanvasItem.PropertyName.ZIndex, 0, 1);
-            }
+            Select(this);
+        }
+    }
+
+    public static void Select(TrashImage image)
+    {
+        image._selected = !image._selected;
+        var tween = image.CreateTween().SetParallel(true);
+        if (image._selected)
+        {
+            image._initialPosition = image.Position;
+            var currentScale = image.Scale;
+            var currentSpriteSize = image._sprite.GetRect().Size * currentScale;
+            var targetSpriteWidth = image._viewportSize.X * 0.4f;
+            var multiplier = targetSpriteWidth / currentSpriteSize.X;
+            var targetPosition = new Vector2((image._viewportSize.X - targetSpriteWidth) / 2, image._viewportSize.Y * 0.009f);
+            tween.TweenProperty(image, (string)Node2D.PropertyName.Scale, image.Scale * multiplier, 1);
+            tween.TweenProperty(image, (string)Node2D.PropertyName.Position, targetPosition, 1);
+            tween.TweenProperty(image, (string)CanvasItem.PropertyName.ZIndex, 1000, 1);
+        }
+        else
+        {
+            tween.TweenProperty(image, (string)Node2D.PropertyName.Scale, image._initialScale, 1);
+            tween.TweenProperty(image, (string)Node2D.PropertyName.Position, image._initialPosition, 1);
+            tween.TweenProperty(image, (string)CanvasItem.PropertyName.ZIndex, 0, 1);
         }
     }
 

@@ -66,6 +66,15 @@ public partial class SpriteContainer : Node2D
         }
     }
 
+    public static void Random(SpriteContainer container)
+    {
+        var randomNodeIndex = container.GetChildCount();
+        if (randomNodeIndex < 0) throw new InvalidOperationException("SpriteContainer contains no nodes.");
+        randomNodeIndex = System.Random.Shared.Next(randomNodeIndex);
+        var child = container.GetChild<TrashImage>(randomNodeIndex);
+        TrashImage.Select(child);
+    }
+
     private static void DirectShuffle(SpriteContainer container)
     {
         foreach (var (position, child) in GetShuffleSetup(container))
@@ -90,7 +99,6 @@ public partial class SpriteContainer : Node2D
 
     private static Vector2 CalculateRandomPosition(Vector2 viewportSize, Vector2 defaultOffset, Vector2 rightBottomOffset)
     {
-        var random = new Vector2(Random.Shared.NextSingle(), Random.Shared.NextSingle());
-        return defaultOffset + random * (viewportSize - defaultOffset * 2f - rightBottomOffset);
+        return defaultOffset + Vec2.Random() * (viewportSize - defaultOffset * 2f - rightBottomOffset);
     }
 }
