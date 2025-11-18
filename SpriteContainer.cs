@@ -14,7 +14,13 @@ public partial class SpriteContainer : Node2D
     public Marker2D PositionMarker { get ;set; } = default!;
 
     [Export]
-    public double ClearDuration { get; set; } = 0.7;
+    public float ImageClearOffset { get; set; } = 15;
+
+    [Export]
+    public double ImageClearDuration { get; set; } = 0.7;
+
+    [Export]
+    public double ImageClearDelay { get; set; } = 0.1;
 
     public override void _Ready()
     {
@@ -52,9 +58,9 @@ public partial class SpriteContainer : Node2D
         {
             if (child is not TrashImage trashImage) continue;
             var tween = container.CreateTween();
-            var offset = Vec2.Random(-15, 15);
-            tween.TweenInterval(0.10 * index);
-            tween.TweenProperty(trashImage, Property.Position, targetPosition + offset, container.ClearDuration)
+            var offset = Vec2.Random(-container.ImageClearOffset, container.ImageClearOffset);
+            tween.TweenInterval(container.ImageClearDelay * index);
+            tween.TweenProperty(trashImage, Property.Position, targetPosition + offset, container.ImageClearDuration)
                .SetTrans(Tween.TransitionType.Cubic);
             index ++;
         }
