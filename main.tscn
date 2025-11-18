@@ -1,9 +1,10 @@
-[gd_scene load_steps=5 format=3 uid="uid://de7g1y7qjcrdc"]
+[gd_scene load_steps=6 format=3 uid="uid://de7g1y7qjcrdc"]
 
 [ext_resource type="Script" uid="uid://5gl7fnoxee3q" path="res://SpriteContainer.cs" id="1_2cqfq"]
 [ext_resource type="Script" uid="uid://byho0n4qloja2" path="res://Main.cs" id="1_074og"]
-[ext_resource type="Script" uid="uid://dmw21itoq3ou3" path="res://Button.cs" id="1_ig7tw"]
+[ext_resource type="Script" uid="uid://dmw21itoq3ou3" path="res://ShuffleButton.cs" id="1_ig7tw"]
 [ext_resource type="PackedScene" uid="uid://dwkm7ph7h77qs" path="res://trashImage.tscn" id="3_1bvp3"]
+[ext_resource type="Script" uid="uid://qnhfjhb5igml" path="res://ClearButton.cs" id="4_lquwl"]
 
 [node name="Main" type="Node2D"]
 script = ExtResource("1_074og")
@@ -17,8 +18,16 @@ offset_top = 1024.0
 offset_right = 1920.0
 offset_bottom = 1080.0
 
-[node name="Button" type="Button" parent="CenterContainer" node_paths=PackedStringArray("SpriteContainer")]
+[node name="HBoxContainer" type="HBoxContainer" parent="CenterContainer"]
 layout_mode = 2
-text = "Shuffle"
+
+[node name="Clear" type="Button" parent="CenterContainer/HBoxContainer"]
+layout_mode = 2
+text = "CLEAR"
+script = ExtResource("4_lquwl")
+
+[node name="Shuffle" type="Button" parent="CenterContainer/HBoxContainer" node_paths=PackedStringArray("SpriteContainer")]
+layout_mode = 2
+text = "SHUFFLE"
 script = ExtResource("1_ig7tw")
-SpriteContainer = NodePath("../../SpriteContainer")
+SpriteContainer = NodePath("../../../SpriteContainer")

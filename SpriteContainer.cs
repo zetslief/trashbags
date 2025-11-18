@@ -1,5 +1,6 @@
 using Godot;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 
 public partial class SpriteContainer : Node2D
@@ -21,10 +22,30 @@ public partial class SpriteContainer : Node2D
             node.Texture = texture;
             AddChild(node);
         }
+        DirectShuffle(this);
         Shuffle(this);
     }
 
     public static void Shuffle(SpriteContainer container)
+    {
+        foreach (var (position, child) in GetShuffleSetup(container))
+        {
+            var tween = container.CreateTween();
+            tween.TweenProperty(child, (string)Node2D.PropertyName.Position, position, 1.5)
+                .SetEase(Tween.EaseType.In)
+                .SetTrans(Tween.TransitionType.Linear);
+        }
+    }
+
+    private static void DirectShuffle(SpriteContainer container)
+    {
+        foreach (var (position, child) in GetShuffleSetup(container))
+        {
+            child.Position = position;
+        }
+    }
+
+    private static IEnumerable<(Vector2 Position, TrashImage child)> GetShuffleSetup(SpriteContainer container)
     {
         foreach (var child in container.GetChildren())
         {
@@ -33,10 +54,7 @@ public partial class SpriteContainer : Node2D
                 var resultSize = TrashImage.SetSize(sprite, 204);
                 var standardOffset = new Vector2(container._viewportSize.X * 0.01f, container._viewportSize.Y * 0.05f);
                 var targetPosition = CalculateRandomPosition(container._viewportSize, standardOffset, resultSize);
-                var tween = container.CreateTween();
-                tween.TweenProperty(child, (string)Node2D.PropertyName.Position, targetPosition, 3)
-                    .SetEase(Tween.EaseType.In)
-                    .SetTrans(Tween.TransitionType.Linear);
+                yield return (targetPosition, sprite);
             }
         }
     }

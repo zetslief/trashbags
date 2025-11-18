@@ -1,7 +1,7 @@
 using Godot;
 using System;
 
-public partial class Button : Godot.Button
+public partial class ShuffleButton : Godot.Button
 {
     [Export]
     public SpriteContainer SpriteContainer { get; set; } = default!;
