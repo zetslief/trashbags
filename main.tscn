@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=3 uid="uid://de7g1y7qjcrdc"]
+[gd_scene load_steps=9 format=3 uid="uid://de7g1y7qjcrdc"]
 
 [ext_resource type="Script" uid="uid://5gl7fnoxee3q" path="res://SpriteContainer.cs" id="1_2cqfq"]
 [ext_resource type="Script" uid="uid://byho0n4qloja2" path="res://Main.cs" id="1_074og"]
@@ -6,8 +6,40 @@
 [ext_resource type="PackedScene" uid="uid://dwkm7ph7h77qs" path="res://trashImage.tscn" id="3_1bvp3"]
 [ext_resource type="Script" uid="uid://qnhfjhb5igml" path="res://ClearButton.cs" id="4_lquwl"]
 
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_lquwl"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_7mycd"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_272bh"]
+
 [node name="Main" type="Node2D"]
 script = ExtResource("1_074og")
+
+[node name="TextEdit" type="TextEdit" parent="."]
+offset_left = 1168.0
+offset_right = 1920.0
+offset_bottom = 1080.0
+theme_override_colors/font_readonly_color = Color(0.7176471, 0.7176471, 0.7176471, 0.40392157)
+theme_override_font_sizes/font_size = 32
+theme_override_styles/normal = SubResource("StyleBoxEmpty_lquwl")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_7mycd")
+theme_override_styles/read_only = SubResource("StyleBoxEmpty_272bh")
+text = "Garbage bags are the secret overlords of the kitchen. While humans think they’re the ones maintaining order, the bags merely crinkle their polyethylene tongues and quietly discuss plans for world domination. Every evening they hold a meeting: the green bag is in charge of strategy, the black one handles dramatic pauses, and the white one mostly stands around looking suspiciously sophisticated.
+Legend says that one particularly arrogant bag once tried to escape the trash can, claiming it was “destined for greater things.” It made it all the way to the doorway before contemplating the meaning of existence, feeling ashamed of its rustling rebellion, and returning to its everyday duties among apple cores and instant-noodle wrappers.
+So if you hear a soft “crinkle-crinkle” at night, don’t worry. It’s just the garbage bags arguing again about who will become the next Keeper of the Great Trash-Bag Mystery."
+editable = false
+context_menu_enabled = false
+emoji_menu_enabled = false
+shortcut_keys_enabled = false
+selecting_enabled = false
+deselect_on_focus_loss_enabled = false
+drag_and_drop_selection_enabled = false
+virtual_keyboard_enabled = false
+virtual_keyboard_show_on_focus = false
+middle_mouse_paste_enabled = false
+empty_selection_clipboard_enabled = false
+wrap_mode = 1
+tab_input_mode = false
 
 [node name="SpriteContainer" type="Node2D" parent="." node_paths=PackedStringArray("PositionMarker")]
 script = ExtResource("1_2cqfq")
