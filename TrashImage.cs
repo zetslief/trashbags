@@ -16,6 +16,8 @@ public partial class TrashImage : StaticBody2D
     [Export]
     public Texture2D? Texture { get; set; }
 
+    public bool IsSelected => _selected;
+
     public override void _Ready()
     {
         if (Texture is null) throw new InvalidOperationException();

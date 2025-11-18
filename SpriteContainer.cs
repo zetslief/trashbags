@@ -68,11 +68,16 @@ public partial class SpriteContainer : Node2D
 
     public static void Random(SpriteContainer container)
     {
+        foreach (var child in container.GetChildren())
+        {
+            if (child is TrashImage { IsSelected: true } selectedImage)
+                TrashImage.Select(selectedImage);
+        }
         var randomNodeIndex = container.GetChildCount();
         if (randomNodeIndex < 0) throw new InvalidOperationException("SpriteContainer contains no nodes.");
         randomNodeIndex = System.Random.Shared.Next(randomNodeIndex);
-        var child = container.GetChild<TrashImage>(randomNodeIndex);
-        TrashImage.Select(child);
+        var imageToSelect = container.GetChild<TrashImage>(randomNodeIndex);
+        TrashImage.Select(imageToSelect);
     }
 
     private static void DirectShuffle(SpriteContainer container)
