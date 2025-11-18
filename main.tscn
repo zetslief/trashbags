@@ -9,9 +9,13 @@
 [node name="Main" type="Node2D"]
 script = ExtResource("1_074og")
 
-[node name="SpriteContainer" type="Node2D" parent="."]
+[node name="SpriteContainer" type="Node2D" parent="." node_paths=PackedStringArray("PositionMarker")]
 script = ExtResource("1_2cqfq")
 TrashImageScene = ExtResource("3_1bvp3")
+PositionMarker = NodePath("../ClearPositionMarker")
+
+[node name="ClearPositionMarker" type="Marker2D" parent="."]
+position = Vector2(64, 64)
 
 [node name="CenterContainer" type="CenterContainer" parent="."]
 offset_top = 1024.0
@@ -21,10 +25,11 @@ offset_bottom = 1080.0
 [node name="HBoxContainer" type="HBoxContainer" parent="CenterContainer"]
 layout_mode = 2
 
-[node name="Clear" type="Button" parent="CenterContainer/HBoxContainer"]
+[node name="Clear" type="Button" parent="CenterContainer/HBoxContainer" node_paths=PackedStringArray("SpriteContainer")]
 layout_mode = 2
 text = "CLEAR"
 script = ExtResource("4_lquwl")
+SpriteContainer = NodePath("../../../SpriteContainer")
 
 [node name="Shuffle" type="Button" parent="CenterContainer/HBoxContainer" node_paths=PackedStringArray("SpriteContainer")]
 layout_mode = 2

@@ -10,9 +10,16 @@ public partial class SpriteContainer : Node2D
     [Export]
     public PackedScene TrashImageScene { get; set; } = default!;
 
+    [Export]
+    public Marker2D PositionMarker { get ;set; } = default!;
+
+    [Export]
+    public double ClearDuration { get; set; } = 0.7;
+
     public override void _Ready()
     {
         if (TrashImageScene is null) throw new InvalidOperationException($"Trash image scene is not set.");
+        if (PositionMarker is null) throw new InvalidOperationException($"PositionMarker is not set.");
         _viewportSize = GetViewportRect().Size;
         var textures = Enumerable.Range(1, 14).Select(i => (i, GD.Load<Texture2D>($"res://images/trash_{i}.png")));
         foreach (var (index, texture) in textures)
@@ -34,6 +41,22 @@ public partial class SpriteContainer : Node2D
             tween.TweenProperty(child, (string)Node2D.PropertyName.Position, position, 1.5)
                 .SetEase(Tween.EaseType.In)
                 .SetTrans(Tween.TransitionType.Linear);
+        }
+    }
+
+    public static void Clear(SpriteContainer container)
+    {
+        var targetPosition = container.PositionMarker.Position;
+        int index = 0;
+        foreach (var child in container.GetChildren())
+        {
+            if (child is not TrashImage trashImage) continue;
+            var tween = container.CreateTween();
+            var offset = Vec2.Random(-15, 15);
+            tween.TweenInterval(0.10 * index);
+            tween.TweenProperty(trashImage, Property.Position, targetPosition + offset, container.ClearDuration)
+               .SetTrans(Tween.TransitionType.Cubic);
+            index ++;
         }
     }
 

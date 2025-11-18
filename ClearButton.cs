@@ -11,5 +11,5 @@ public partial class ClearButton : Button
         if (SpriteContainer is null) throw new InvalidOperationException($"SpriteContainer is not set.");
     }
 
-    public override void _Pressed() => GD.Print("Clear");
+    public override void _Pressed() => SpriteContainer.Clear(SpriteContainer);
 }
