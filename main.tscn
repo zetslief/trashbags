@@ -20,6 +20,8 @@ script = ExtResource("1_074og")
 script = ExtResource("1_2cqfq")
 TrashImageScene = ExtResource("3_1bvp3")
 PositionMarker = NodePath("../ClearPositionMarker")
+ImageClearOffset = 200.0
+ImageClearDelay = 0.0
 
 [node name="ClearPositionMarker" type="Marker2D" parent="."]
 position = Vector2(64, 64)

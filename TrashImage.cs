@@ -26,10 +26,7 @@ public partial class TrashImage : StaticBody2D
         _sprite.Texture = Texture;
         var collider = GetNode<CollisionShape2D>("Collider");
         var colliderSize = _sprite.GetRect().Size;
-        collider.Shape = new RectangleShape2D()
-        {
-            Size = colliderSize
-        };
+        collider.Shape = new RectangleShape2D() { Size = colliderSize };
         collider.Position = colliderSize / 2f;
     }
 

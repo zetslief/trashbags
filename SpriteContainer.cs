@@ -22,6 +22,12 @@ public partial class SpriteContainer : Node2D
     [Export]
     public double ImageClearDelay { get; set; } = 0.1;
 
+    [Export]
+    public Tween.EaseType Ease { get; set; } = Tween.EaseType.InOut;
+
+    [Export]
+    public Tween.TransitionType TransitionType { get; set; } = Tween.TransitionType.Linear;
+
     public override void _Ready()
     {
         if (TrashImageScene is null) throw new InvalidOperationException($"Trash image scene is not set.");
@@ -44,9 +50,9 @@ public partial class SpriteContainer : Node2D
         foreach (var (position, child) in GetShuffleSetup(container))
         {
             var tween = container.CreateTween();
-            tween.TweenProperty(child, (string)Node2D.PropertyName.Position, position, 1.5)
-                .SetEase(Tween.EaseType.In)
-                .SetTrans(Tween.TransitionType.Linear);
+            tween.TweenProperty(child, Property.Position, position, 1.5)
+                .SetEase(container.Ease)
+                .SetTrans(container.TransitionType);
         }
     }
 
