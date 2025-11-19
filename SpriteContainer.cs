@@ -5,6 +5,8 @@ using System.Linq;
 
 public partial class SpriteContainer : Node2D
 {
+    private const int _minZ = 0;
+    private const int _maxZ = 100;
     private Vector2 _viewportSize;
 
     [Export]
@@ -60,14 +62,17 @@ public partial class SpriteContainer : Node2D
     {
         var targetPosition = container.PositionMarker.Position;
         int index = 0;
-        foreach (var child in container.GetChildren())
+        var children = container.GetChildren();
+        foreach (var child in children)
         {
             if (child is not TrashImage trashImage) continue;
+            var zIndex = System.Random.Shared.Next(_minZ, _maxZ);
             var tween = container.CreateTween();
             var offset = Vec2.Random(-container.ImageClearOffset, container.ImageClearOffset);
             tween.TweenInterval(container.ImageClearDelay * index);
             tween.TweenProperty(trashImage, Property.Position, targetPosition + offset, container.ImageClearDuration)
                .SetTrans(Tween.TransitionType.Cubic);
+            tween.Parallel().TweenProperty(trashImage, Property.ZIndex, zIndex, container.ImageClearDuration / 2);
             index ++;
         }
     }
