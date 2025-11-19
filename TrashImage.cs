@@ -1,6 +1,9 @@
 using Godot;
 using System;
 
+public record SizeSetup(Vector2 Scale, Vector2 TextureSize);
+public record SelectSetup(Vector2 Scale, Vector2 Position, int ZIndex);
+
 public partial class TrashImage : StaticBody2D
 {
     private Sprite2D _sprite = default!;
@@ -16,6 +19,7 @@ public partial class TrashImage : StaticBody2D
 
     public bool IsSelected => _selected;
     public bool IsHovered => _hovered;
+    public Vector2 InitialScale => _initialScale;
 
     public override void _Ready()
     {
@@ -37,7 +41,7 @@ public partial class TrashImage : StaticBody2D
         if (!_hovered) return;
         if (@event is InputEventMouseButton mb && mb.ButtonIndex == MouseButton.Left && mb.IsPressed())
         {
-            Select(this);
+            SetupSelect(this);
         }
     }
 
@@ -45,10 +49,9 @@ public partial class TrashImage : StaticBody2D
     {
     }
 
-    public static void Select(TrashImage image)
+    public static SelectSetup SetupSelect(TrashImage image)
     {
         image._selected = !image._selected;
-        var tween = image.CreateTween().SetParallel(true);
         if (image._selected)
         {
             image._initialPosition = image.Position;
@@ -57,28 +60,23 @@ public partial class TrashImage : StaticBody2D
             var targetSpriteWidth = image._viewportSize.X * 0.4f;
             var multiplier = targetSpriteWidth / currentSpriteSize.X;
             var targetPosition = new Vector2((image._viewportSize.X - targetSpriteWidth) / 2, image._viewportSize.Y * 0.009f);
-            tween.TweenProperty(image, (string)Node2D.PropertyName.Scale, image.Scale * multiplier, 1);
-            tween.TweenProperty(image, (string)Node2D.PropertyName.Position, targetPosition, 1);
-            tween.TweenProperty(image, (string)CanvasItem.PropertyName.ZIndex, 1000, 1);
+            return new(image.Scale * multiplier, targetPosition, 1000);
         }
         else
         {
-            tween.TweenProperty(image, (string)Node2D.PropertyName.Scale, image._initialScale, 1);
-            tween.TweenProperty(image, (string)Node2D.PropertyName.Position, image._initialPosition, 1);
-            tween.TweenProperty(image, (string)CanvasItem.PropertyName.ZIndex, 0, 1);
+            return new(image._initialScale, image._initialPosition, 0);
         }
     }
 
-    public static Vector2 SetSize(TrashImage trashImage, float height)
+    public static SizeSetup SetupSize(TrashImage trashImage, float height)
     {
         var sprite = trashImage._sprite;
         var currentScale = trashImage.Scale;
         var spriteSize = sprite.GetRect().Size;
         var currentSpriteSize = spriteSize * currentScale;
         var resultScale = CalculateScale(currentScale, currentSpriteSize, height);
-        trashImage.Scale = resultScale;
-        trashImage._initialScale = trashImage.Scale;
-        return spriteSize * resultScale;
+        trashImage._initialScale = resultScale;
+        return new(resultScale, spriteSize);
     }
 
     private static Vector2 CalculateScale(Vector2 currentScale, Vector2 currentSize, float requiredHeight)

@@ -14,5 +14,6 @@ public static class Vec2
 public static class Property
 {
     public static string Position => Node2D.PropertyName.Position;
+    public static string Scale => Node2D.PropertyName.Scale;
     public static string ZIndex => CanvasItem.PropertyName.ZIndex;
 }

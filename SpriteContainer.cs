@@ -68,11 +68,18 @@ public partial class SpriteContainer : Node2D
         {
             if (child is not TrashImage trashImage) continue;
             var zIndex = System.Random.Shared.Next(_minZ, _maxZ);
-            var tween = container.CreateTween();
             var offset = Vec2.Random(-container.ImageClearOffset, container.ImageClearOffset);
+            var scale = trashImage.Scale;
+            if (trashImage.IsSelected)
+            {
+                scale = TrashImage.SetupSelect(trashImage).Scale;
+            }
+            var tween = container.CreateTween();
             tween.TweenInterval(container.ImageClearDelay * index);
             tween.TweenProperty(trashImage, Property.Position, targetPosition + offset, container.ImageClearDuration)
-               .SetTrans(Tween.TransitionType.Cubic);
+                .SetTrans(Tween.TransitionType.Cubic);
+            if (scale != trashImage.Scale)
+                tween.Parallel().TweenProperty(trashImage, Property.Scale, scale, container.ImageClearDuration);
             tween.Parallel().TweenProperty(trashImage, Property.ZIndex, zIndex, container.ImageClearDuration / 2);
             index ++;
         }
@@ -83,13 +90,13 @@ public partial class SpriteContainer : Node2D
         foreach (var child in container.GetChildren())
         {
             if (child is TrashImage { IsSelected: true } selectedImage)
-                TrashImage.Select(selectedImage);
+                RunSelect(selectedImage, TrashImage.SetupSelect(selectedImage));
         }
         var randomNodeIndex = container.GetChildCount();
         if (randomNodeIndex < 0) throw new InvalidOperationException("SpriteContainer contains no nodes.");
         randomNodeIndex = System.Random.Shared.Next(randomNodeIndex);
         var imageToSelect = container.GetChild<TrashImage>(randomNodeIndex);
-        TrashImage.Select(imageToSelect);
+        RunSelect(imageToSelect, TrashImage.SetupSelect(imageToSelect));
     }
 
     private static void DirectShuffle(SpriteContainer container)
@@ -100,15 +107,25 @@ public partial class SpriteContainer : Node2D
         }
     }
 
+    private static void RunSelect(TrashImage image, SelectSetup setup)
+    {
+        var tween = image.CreateTween().SetParallel(true);
+        tween.TweenProperty(image, (string)Node2D.PropertyName.Scale, setup.Scale, 1);
+        tween.TweenProperty(image, (string)Node2D.PropertyName.Position, setup.Position, 1);
+        tween.TweenProperty(image, (string)CanvasItem.PropertyName.ZIndex, setup.ZIndex, 1);
+    }
+
     private static IEnumerable<(Vector2 Position, TrashImage child)> GetShuffleSetup(SpriteContainer container)
     {
         foreach (var child in container.GetChildren())
         {
             if (child is TrashImage sprite && !sprite.IsSelected)
             {
-                var resultSize = TrashImage.SetSize(sprite, 204);
+                var sizeSetup = TrashImage.SetupSize(sprite, 204);
                 var standardOffset = new Vector2(container._viewportSize.X * 0.01f, container._viewportSize.Y * 0.05f);
+                var resultSize = sizeSetup.Scale * sizeSetup.TextureSize;
                 var targetPosition = CalculateRandomPosition(container._viewportSize, standardOffset, resultSize);
+                sprite.Scale = sizeSetup.Scale;
                 yield return (targetPosition, sprite);
             }
         }
