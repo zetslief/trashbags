@@ -51,6 +51,7 @@ public partial class SpriteContainer : Node2D
     {
         foreach (var (position, child) in GetShuffleSetup(container))
         {
+            if (child is not TrashImage trashImage) continue;
             var tween = container.CreateTween();
             tween.TweenProperty(child, Property.Position, position, 1.5)
                 .SetEase(container.Ease)
@@ -103,7 +104,7 @@ public partial class SpriteContainer : Node2D
     {
         foreach (var child in container.GetChildren())
         {
-            if (child is TrashImage sprite)
+            if (child is TrashImage sprite && !sprite.IsSelected)
             {
                 var resultSize = TrashImage.SetSize(sprite, 204);
                 var standardOffset = new Vector2(container._viewportSize.X * 0.01f, container._viewportSize.Y * 0.05f);
