@@ -3,11 +3,9 @@ using System;
 
 public partial class TrashImage : StaticBody2D
 {
-    private const float MouseInteractionDuration = 0.15f;
-    // Ready
     private Sprite2D _sprite = default!;
     private Vector2 _viewportSize;
-    // State
+
     private Vector2 _initialScale;
     private bool _hovered = false;
     private Vector2 _initialPosition;
@@ -17,6 +15,7 @@ public partial class TrashImage : StaticBody2D
     public Texture2D? Texture { get; set; }
 
     public bool IsSelected => _selected;
+    public bool IsHovered => _hovered;
 
     public override void _Ready()
     {
@@ -30,17 +29,8 @@ public partial class TrashImage : StaticBody2D
         collider.Position = colliderSize / 2f;
     }
 
-    public override void _MouseEnter()
-    {
-        _hovered = true;
-        if (_selected) return;
-        _initialScale = Scale;
-    }
-
-    public override void _MouseExit()
-    {
-        _hovered = false;
-    }
+    public override void _MouseEnter() =>_hovered = true;
+    public override void _MouseExit() => _hovered = false;
 
     public override void _Input(InputEvent @event)
     {
@@ -49,6 +39,10 @@ public partial class TrashImage : StaticBody2D
         {
             Select(this);
         }
+    }
+
+    public override void _Process(double delta)
+    {
     }
 
     public static void Select(TrashImage image)
@@ -83,6 +77,7 @@ public partial class TrashImage : StaticBody2D
         var currentSpriteSize = spriteSize * currentScale;
         var resultScale = CalculateScale(currentScale, currentSpriteSize, height);
         trashImage.Scale = resultScale;
+        trashImage._initialScale = trashImage.Scale;
         return spriteSize * resultScale;
     }
 
