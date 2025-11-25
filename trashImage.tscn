@@ -1,7 +1,8 @@
-[gd_scene load_steps=5 format=3 uid="uid://dwkm7ph7h77qs"]
+[gd_scene load_steps=6 format=3 uid="uid://dwkm7ph7h77qs"]
 
 [ext_resource type="Texture2D" uid="uid://d3b8kngkdj3l2" path="res://images/placeholder.png" id="1_f2ju8"]
 [ext_resource type="Script" uid="uid://jphptmxokk7p" path="res://TrashImage.cs" id="1_i0jgq"]
+[ext_resource type="Texture2D" uid="uid://bheacbobe7hw1" path="res://images/back.png" id="3_tjas4"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_i0jgq"]
 size = Vector2(1024, 1024)
@@ -27,3 +28,7 @@ mesh = SubResource("QuadMesh_ocf1o")
 [node name="Sprite" type="Sprite2D" parent="."]
 texture = ExtResource("1_f2ju8")
 centered = false
+
+[node name="Back" type="Sprite2D" parent="."]
+position = Vector2(512, 512)
+texture = ExtResource("3_tjas4")

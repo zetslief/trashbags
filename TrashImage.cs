@@ -7,6 +7,7 @@ public record SelectSetup(Vector2 Scale, Vector2 Position, int ZIndex);
 public partial class TrashImage : StaticBody2D
 {
     private Sprite2D _sprite = default!;
+    private Sprite2D _back = default!;
     private Vector2 _viewportSize;
 
     private Vector2 _initialScale;
@@ -21,11 +22,15 @@ public partial class TrashImage : StaticBody2D
     public Vector2 ShadowBorder { get; set; } = new(50, 50);
 
     [Export]
-    public Color ShadowColor { get; set; } = new Color(141,141, 141);
+    public Color ShadowColor { get; set; } = Colors.White;
+
+    [Export]
+    public Texture2D? Back { get; set; }
 
     public bool IsSelected => _selected;
     public bool IsHovered => _hovered;
     public Vector2 InitialScale => _initialScale;
+    public bool IsFlipped { get; private set; } = false;
 
     public override void _Ready()
     {
@@ -42,19 +47,13 @@ public partial class TrashImage : StaticBody2D
         shadow.Modulate = ShadowColor;
         shadow.Scale = shadowSize;
         shadow.Position = shadowSize / 2f - ShadowBorder / 2;
+        _back = GetNode<Sprite2D>("Back");
+        _back.Position = colliderSize / 2;
+        if (Back is not null) _back.Texture = Back;
     }
 
     public override void _MouseEnter() =>_hovered = true;
     public override void _MouseExit() => _hovered = false;
-
-    public override void _Input(InputEvent @event)
-    {
-        if (!_hovered) return;
-        if (@event is InputEventMouseButton mb && mb.ButtonIndex == MouseButton.Left && mb.IsPressed())
-        {
-            SetupSelect(this);
-        }
-    }
 
     public override void _Process(double delta)
     {
@@ -77,6 +76,13 @@ public partial class TrashImage : StaticBody2D
         {
             return new(image._initialScale, image._initialPosition, 0);
         }
+    }
+
+    public static void SetupFlip(TrashImage image)
+    {
+        image.IsFlipped = true;
+        image._back.Texture = null;
+        GD.Print("Flipped");
     }
 
     public static SizeSetup SetupSize(TrashImage trashImage, float height)

@@ -47,13 +47,28 @@ public partial class SpriteContainer : Node2D
         Shuffle(this);
     }
 
+    public override void _Input(InputEvent @event)
+    {
+        if (@event is not InputEventMouseButton mb ||  mb.ButtonIndex == MouseButton.Left && mb.IsPressed())
+            return;
+        foreach (var child in GetChildren())
+        {
+            if (child is TrashImage { IsHovered: true} hoveredImage)
+            {
+                if (hoveredImage.IsFlipped) RunSelect(hoveredImage, TrashImage.SetupSelect(hoveredImage));
+                else TrashImage.SetupFlip(hoveredImage);
+                break;
+            }
+        }
+    }
+
     public static void Shuffle(SpriteContainer container)
     {
         foreach (var (position, child) in GetShuffleSetup(container))
         {
             if (child is not TrashImage trashImage) continue;
             var tween = container.CreateTween();
-            tween.TweenProperty(child, Property.Position, position, 1.5)
+            tween.TweenProperty(trashImage, Property.Position, position, 1.5)
                 .SetEase(container.Ease)
                 .SetTrans(container.TransitionType);
         }
