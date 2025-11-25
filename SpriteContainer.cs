@@ -51,6 +51,13 @@ public partial class SpriteContainer : Node2D
     {
         if (@event is not InputEventMouseButton mb ||  mb.ButtonIndex == MouseButton.Left && mb.IsPressed())
             return;
+
+        foreach (var child in GetChildren())
+        {
+            if (child is TrashImage { IsSelected: true, IsHovered: false } selectedImage)
+                RunSelect(selectedImage, TrashImage.SetupSelect(selectedImage));
+        }
+
         foreach (var child in GetChildren())
         {
             if (child is TrashImage { IsHovered: true} hoveredImage)
