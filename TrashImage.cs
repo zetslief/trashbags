@@ -17,6 +17,12 @@ public partial class TrashImage : StaticBody2D
     [Export]
     public Texture2D? Texture { get; set; }
 
+    [Export]
+    public Vector2 ShadowBorder { get; set; } = new(50, 50);
+
+    [Export]
+    public Color ShadowColor { get; set; } = new Color(141,141, 141);
+
     public bool IsSelected => _selected;
     public bool IsHovered => _hovered;
     public Vector2 InitialScale => _initialScale;
@@ -30,7 +36,12 @@ public partial class TrashImage : StaticBody2D
         var collider = GetNode<CollisionShape2D>("Collider");
         var colliderSize = _sprite.GetRect().Size;
         collider.Shape = new RectangleShape2D() { Size = colliderSize };
-        collider.Position = colliderSize / 2f;
+        collider.Position = colliderSize / 2;
+        var shadow = GetNode<MeshInstance2D>("Shadow");
+        var shadowSize = colliderSize + ShadowBorder;
+        shadow.Modulate = ShadowColor;
+        shadow.Scale = shadowSize;
+        shadow.Position = shadowSize / 2f - ShadowBorder / 2;
     }
 
     public override void _MouseEnter() =>_hovered = true;
