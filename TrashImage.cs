@@ -85,14 +85,25 @@ public partial class TrashImage : StaticBody2D
         var currentScale = trashImage.Scale;
         var spriteSize = sprite.GetRect().Size;
         var currentSpriteSize = spriteSize * currentScale;
-        var resultScale = CalculateScale(currentScale, currentSpriteSize, height);
+        var resultScale = IsVertical(currentSpriteSize)
+            ? CalculateScaleForHeight(currentScale, currentSpriteSize, height)
+            : CalculateScaleForWidth(currentScale, currentSpriteSize, height);
         trashImage._initialScale = resultScale;
+        GD.Print(spriteSize * resultScale);
         return new(resultScale, spriteSize);
     }
 
-    private static Vector2 CalculateScale(Vector2 currentScale, Vector2 currentSize, float requiredHeight)
+    private static Vector2 CalculateScaleForHeight(Vector2 currentScale, Vector2 currentSize, float requiredHeight)
     {
         var multiplier = requiredHeight / currentSize.Y;
         return currentScale * multiplier;
     }
+
+    private static Vector2 CalculateScaleForWidth(Vector2 currentScale, Vector2 currentSize, float requiredWidth)
+    {
+        var multiplier = requiredWidth / currentSize.X;
+        return currentScale * multiplier;
+    }
+
+    private static bool IsVertical(Vector2 size) => size.X < size.Y;
 }
