@@ -52,7 +52,7 @@ public partial class TrashImage : StaticBody2D
         if (Back is not null) _back.Texture = Back;
     }
 
-    public override void _MouseEnter() =>_hovered = true;
+    public override void _MouseEnter() => _hovered = true;
     public override void _MouseExit() => _hovered = false;
 
     public override void _Process(double delta)

@@ -13,7 +13,7 @@ public partial class SpriteContainer : Node2D
     public PackedScene TrashImageScene { get; set; } = default!;
 
     [Export]
-    public Marker2D PositionMarker { get ;set; } = default!;
+    public Marker2D PositionMarker { get; set; } = default!;
 
     [Export]
     public float ImageClearOffset { get; set; } = 15;
@@ -49,7 +49,7 @@ public partial class SpriteContainer : Node2D
 
     public override void _Input(InputEvent @event)
     {
-        if (@event is not InputEventMouseButton mb ||  mb.ButtonIndex == MouseButton.Left && mb.IsPressed())
+        if (@event is not InputEventMouseButton mb || mb.ButtonIndex == MouseButton.Left && mb.IsPressed())
             return;
 
         foreach (var child in GetChildren())
@@ -60,7 +60,7 @@ public partial class SpriteContainer : Node2D
 
         foreach (var child in GetChildren())
         {
-            if (child is TrashImage { IsHovered: true} hoveredImage)
+            if (child is TrashImage { IsHovered: true } hoveredImage)
             {
                 if (hoveredImage.IsFlipped) RunSelect(hoveredImage, TrashImage.SetupSelect(hoveredImage));
                 else TrashImage.SetupFlip(hoveredImage);
@@ -103,7 +103,7 @@ public partial class SpriteContainer : Node2D
             if (scale != trashImage.Scale)
                 tween.Parallel().TweenProperty(trashImage, Property.Scale, scale, container.ImageClearDuration);
             tween.Parallel().TweenProperty(trashImage, Property.ZIndex, zIndex, container.ImageClearDuration / 2);
-            index ++;
+            index++;
         }
     }
 
