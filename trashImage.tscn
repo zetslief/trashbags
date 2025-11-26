@@ -7,13 +7,12 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_i0jgq"]
 size = Vector2(1024, 1024)
 
-[sub_resource type="QuadMesh" id="QuadMesh_ocf1o"]
+[sub_resource type="QuadMesh" id="QuadMesh_tjas4"]
 
 [node name="TrashImage" type="StaticBody2D"]
 collision_mask = 0
 input_pickable = true
 script = ExtResource("1_i0jgq")
-ShadowBorder = Vector2(10, 10)
 
 [node name="Collider" type="CollisionShape2D" parent="."]
 position = Vector2(512, 512)
@@ -23,7 +22,7 @@ shape = SubResource("RectangleShape2D_i0jgq")
 modulate = Color(0.5529556, 0.55295557, 0.55295557, 1)
 position = Vector2(512, 512)
 scale = Vector2(1024, 1024)
-mesh = SubResource("QuadMesh_ocf1o")
+mesh = SubResource("QuadMesh_tjas4")
 
 [node name="Sprite" type="Sprite2D" parent="."]
 texture = ExtResource("1_f2ju8")

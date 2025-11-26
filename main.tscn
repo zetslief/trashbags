@@ -33,6 +33,7 @@ layer = -1
 offset_left = 1168.0
 offset_right = 1920.0
 offset_bottom = 1080.0
+mouse_filter = 2
 theme_override_colors/font_readonly_color = Color(0.7176471, 0.7176471, 0.7176471, 0.40392157)
 theme_override_font_sizes/font_size = 32
 theme_override_styles/normal = SubResource("StyleBoxEmpty_lquwl")
